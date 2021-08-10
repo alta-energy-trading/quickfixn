@@ -81,6 +81,8 @@ namespace QuickFix
         /// <returns>true if field was removed, false otherwise</returns>
         public bool RemoveField(int field)
         {
+            if (field == 212)
+            { }
             return _fields.Remove(field);
         }
 
@@ -112,6 +114,8 @@ namespace QuickFix
         /// <returns>false if overwrite would be violated, else true</returns>
         public bool SetField(Fields.IField field, bool overwrite)
         {
+            if (field.Tag == 212)
+            { }
             if (_fields.ContainsKey(field.Tag) && !overwrite)
                 return false;
             
@@ -232,6 +236,8 @@ namespace QuickFix
         /// <returns>true if set</returns>
         public bool IsSetField(int tag)
         {
+            if (tag == 212)
+            { }
             return _fields.ContainsKey(tag);
         }
 

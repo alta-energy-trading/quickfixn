@@ -164,11 +164,11 @@ namespace QuickFix.DataDictionary
                     throw new RequiredTagMissing(field);
             }
 
-            foreach (int field in Messages[msgType].ReqFields)
-            {
-                if (!message.IsSetField(field))
-                    throw new RequiredTagMissing(field);
-            }
+            //foreach (int field in Messages[msgType].ReqFields)
+            //{
+            //    if (!message.IsSetField(field))
+            //        throw new RequiredTagMissing(field);
+            //}
 
             /* FIXME TODO group stuff
             foreach (DDGroup grp in _messages[msgType].Groups.Values)

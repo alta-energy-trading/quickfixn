@@ -312,36 +312,36 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.SettlmntTyp);
             }
-            public QuickFix.Fields.FutSettDate FutSettDate
+            public QuickFix.Fields.SettlDate SettlDate
             { 
                 get 
                 {
-                    QuickFix.Fields.FutSettDate val = new QuickFix.Fields.FutSettDate();
+                    QuickFix.Fields.SettlDate val = new QuickFix.Fields.SettlDate();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.FutSettDate val) 
+            public void Set(QuickFix.Fields.SettlDate val) 
             { 
-                this.FutSettDate = val;
+                this.SettlDate = val;
             }
             
-            public QuickFix.Fields.FutSettDate Get(QuickFix.Fields.FutSettDate val) 
+            public QuickFix.Fields.SettlDate Get(QuickFix.Fields.SettlDate val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.FutSettDate val) 
+            public bool IsSet(QuickFix.Fields.SettlDate val) 
             { 
-                return IsSetFutSettDate();
+                return IsSetSettlDate();
             }
             
-            public bool IsSetFutSettDate() 
+            public bool IsSetSettlDate() 
             { 
-                return IsSetField(Tags.FutSettDate);
+                return IsSetField(Tags.SettlDate);
             }
             public QuickFix.Fields.HandlInst HandlInst
             { 
@@ -1924,36 +1924,36 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.EncodedText);
             }
-            public QuickFix.Fields.FutSettDate2 FutSettDate2
+            public QuickFix.Fields.SettlDate2 SettlDate2
             { 
                 get 
                 {
-                    QuickFix.Fields.FutSettDate2 val = new QuickFix.Fields.FutSettDate2();
+                    QuickFix.Fields.SettlDate2 val = new QuickFix.Fields.SettlDate2();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.FutSettDate2 val) 
+            public void Set(QuickFix.Fields.SettlDate2 val) 
             { 
-                this.FutSettDate2 = val;
+                this.SettlDate2 = val;
             }
             
-            public QuickFix.Fields.FutSettDate2 Get(QuickFix.Fields.FutSettDate2 val) 
+            public QuickFix.Fields.SettlDate2 Get(QuickFix.Fields.SettlDate2 val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.FutSettDate2 val) 
+            public bool IsSet(QuickFix.Fields.SettlDate2 val) 
             { 
-                return IsSetFutSettDate2();
+                return IsSetSettlDate2();
             }
             
-            public bool IsSetFutSettDate2() 
+            public bool IsSetSettlDate2() 
             { 
-                return IsSetField(Tags.FutSettDate2);
+                return IsSetField(Tags.SettlDate2);
             }
             public QuickFix.Fields.OrderQty2 OrderQty2
             { 

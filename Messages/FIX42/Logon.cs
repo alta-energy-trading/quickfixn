@@ -16,11 +16,17 @@ namespace QuickFix
 
             public Logon(
                     QuickFix.Fields.EncryptMethod aEncryptMethod,
-                    QuickFix.Fields.HeartBtInt aHeartBtInt
+                    QuickFix.Fields.HeartBtInt aHeartBtInt,
+                    QuickFix.Fields.ApplicationSystemName aApplicationSystemName,
+                    QuickFix.Fields.TradingSystemVersion aTradingSystemVersion,
+                    QuickFix.Fields.ApplicationSystemVendor aApplicationSystemVendor
                 ) : this()
             {
                 this.EncryptMethod = aEncryptMethod;
                 this.HeartBtInt = aHeartBtInt;
+                this.ApplicationSystemName = aApplicationSystemName;
+                this.TradingSystemVersion = aTradingSystemVersion;
+                this.ApplicationSystemVendor = aApplicationSystemVendor;
             }
 
             public QuickFix.Fields.EncryptMethod EncryptMethod
@@ -85,68 +91,6 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.HeartBtInt);
             }
-            public QuickFix.Fields.RawDataLength RawDataLength
-            { 
-                get 
-                {
-                    QuickFix.Fields.RawDataLength val = new QuickFix.Fields.RawDataLength();
-                    GetField(val);
-                    return val;
-                }
-                set { SetField(value); }
-            }
-            
-            public void Set(QuickFix.Fields.RawDataLength val) 
-            { 
-                this.RawDataLength = val;
-            }
-            
-            public QuickFix.Fields.RawDataLength Get(QuickFix.Fields.RawDataLength val) 
-            { 
-                GetField(val);
-                return val;
-            }
-            
-            public bool IsSet(QuickFix.Fields.RawDataLength val) 
-            { 
-                return IsSetRawDataLength();
-            }
-            
-            public bool IsSetRawDataLength() 
-            { 
-                return IsSetField(Tags.RawDataLength);
-            }
-            public QuickFix.Fields.RawData RawData
-            { 
-                get 
-                {
-                    QuickFix.Fields.RawData val = new QuickFix.Fields.RawData();
-                    GetField(val);
-                    return val;
-                }
-                set { SetField(value); }
-            }
-            
-            public void Set(QuickFix.Fields.RawData val) 
-            { 
-                this.RawData = val;
-            }
-            
-            public QuickFix.Fields.RawData Get(QuickFix.Fields.RawData val) 
-            { 
-                GetField(val);
-                return val;
-            }
-            
-            public bool IsSet(QuickFix.Fields.RawData val) 
-            { 
-                return IsSetRawData();
-            }
-            
-            public bool IsSetRawData() 
-            { 
-                return IsSetField(Tags.RawData);
-            }
             public QuickFix.Fields.ResetSeqNumFlag ResetSeqNumFlag
             { 
                 get 
@@ -178,147 +122,129 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.ResetSeqNumFlag);
             }
-            public QuickFix.Fields.MaxMessageSize MaxMessageSize
+            public QuickFix.Fields.ApplicationSystemName ApplicationSystemName
             { 
                 get 
                 {
-                    QuickFix.Fields.MaxMessageSize val = new QuickFix.Fields.MaxMessageSize();
+                    QuickFix.Fields.ApplicationSystemName val = new QuickFix.Fields.ApplicationSystemName();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.MaxMessageSize val) 
+            public void Set(QuickFix.Fields.ApplicationSystemName val) 
             { 
-                this.MaxMessageSize = val;
+                this.ApplicationSystemName = val;
             }
             
-            public QuickFix.Fields.MaxMessageSize Get(QuickFix.Fields.MaxMessageSize val) 
+            public QuickFix.Fields.ApplicationSystemName Get(QuickFix.Fields.ApplicationSystemName val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.MaxMessageSize val) 
+            public bool IsSet(QuickFix.Fields.ApplicationSystemName val) 
             { 
-                return IsSetMaxMessageSize();
+                return IsSetApplicationSystemName();
             }
             
-            public bool IsSetMaxMessageSize() 
+            public bool IsSetApplicationSystemName() 
             { 
-                return IsSetField(Tags.MaxMessageSize);
+                return IsSetField(Tags.ApplicationSystemName);
             }
-            public QuickFix.Fields.NoMsgTypes NoMsgTypes
+            public QuickFix.Fields.TradingSystemVersion TradingSystemVersion
             { 
                 get 
                 {
-                    QuickFix.Fields.NoMsgTypes val = new QuickFix.Fields.NoMsgTypes();
+                    QuickFix.Fields.TradingSystemVersion val = new QuickFix.Fields.TradingSystemVersion();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.NoMsgTypes val) 
+            public void Set(QuickFix.Fields.TradingSystemVersion val) 
             { 
-                this.NoMsgTypes = val;
+                this.TradingSystemVersion = val;
             }
             
-            public QuickFix.Fields.NoMsgTypes Get(QuickFix.Fields.NoMsgTypes val) 
+            public QuickFix.Fields.TradingSystemVersion Get(QuickFix.Fields.TradingSystemVersion val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.NoMsgTypes val) 
+            public bool IsSet(QuickFix.Fields.TradingSystemVersion val) 
             { 
-                return IsSetNoMsgTypes();
+                return IsSetTradingSystemVersion();
             }
             
-            public bool IsSetNoMsgTypes() 
+            public bool IsSetTradingSystemVersion() 
             { 
-                return IsSetField(Tags.NoMsgTypes);
+                return IsSetField(Tags.TradingSystemVersion);
             }
-            public class NoMsgTypesGroup : Group
-            {
-                public static int[] fieldOrder = {Tags.RefMsgType, Tags.MsgDirection, 0};
-            
-                public NoMsgTypesGroup() 
-                  :base( Tags.NoMsgTypes, Tags.RefMsgType, fieldOrder)
+            public QuickFix.Fields.ApplicationSystemVendor ApplicationSystemVendor
+            { 
+                get 
                 {
-                }
-            
-                public override Group Clone()
-                {
-                    var clone = new NoMsgTypesGroup();
-                    clone.CopyStateFrom(this);
-                    return clone;
-                }
-            
-                public QuickFix.Fields.RefMsgType RefMsgType
-                { 
-                    get 
-                    {
-                        QuickFix.Fields.RefMsgType val = new QuickFix.Fields.RefMsgType();
-                        GetField(val);
-                        return val;
-                    }
-                    set { SetField(value); }
-                }
-                
-                public void Set(QuickFix.Fields.RefMsgType val) 
-                { 
-                    this.RefMsgType = val;
-                }
-                
-                public QuickFix.Fields.RefMsgType Get(QuickFix.Fields.RefMsgType val) 
-                { 
+                    QuickFix.Fields.ApplicationSystemVendor val = new QuickFix.Fields.ApplicationSystemVendor();
                     GetField(val);
                     return val;
                 }
-                
-                public bool IsSet(QuickFix.Fields.RefMsgType val) 
-                { 
-                    return IsSetRefMsgType();
-                }
-                
-                public bool IsSetRefMsgType() 
-                { 
-                    return IsSetField(Tags.RefMsgType);
-                }
-                public QuickFix.Fields.MsgDirection MsgDirection
-                { 
-                    get 
-                    {
-                        QuickFix.Fields.MsgDirection val = new QuickFix.Fields.MsgDirection();
-                        GetField(val);
-                        return val;
-                    }
-                    set { SetField(value); }
-                }
-                
-                public void Set(QuickFix.Fields.MsgDirection val) 
-                { 
-                    this.MsgDirection = val;
-                }
-                
-                public QuickFix.Fields.MsgDirection Get(QuickFix.Fields.MsgDirection val) 
-                { 
+                set { SetField(value); }
+            }
+            
+            public void Set(QuickFix.Fields.ApplicationSystemVendor val) 
+            { 
+                this.ApplicationSystemVendor = val;
+            }
+            
+            public QuickFix.Fields.ApplicationSystemVendor Get(QuickFix.Fields.ApplicationSystemVendor val) 
+            { 
+                GetField(val);
+                return val;
+            }
+            
+            public bool IsSet(QuickFix.Fields.ApplicationSystemVendor val) 
+            { 
+                return IsSetApplicationSystemVendor();
+            }
+            
+            public bool IsSetApplicationSystemVendor() 
+            { 
+                return IsSetField(Tags.ApplicationSystemVendor);
+            }
+            public QuickFix.Fields.SplitMsg SplitMsg
+            { 
+                get 
+                {
+                    QuickFix.Fields.SplitMsg val = new QuickFix.Fields.SplitMsg();
                     GetField(val);
                     return val;
                 }
-                
-                public bool IsSet(QuickFix.Fields.MsgDirection val) 
-                { 
-                    return IsSetMsgDirection();
-                }
-                
-                public bool IsSetMsgDirection() 
-                { 
-                    return IsSetField(Tags.MsgDirection);
-                }
+                set { SetField(value); }
+            }
             
+            public void Set(QuickFix.Fields.SplitMsg val) 
+            { 
+                this.SplitMsg = val;
+            }
+            
+            public QuickFix.Fields.SplitMsg Get(QuickFix.Fields.SplitMsg val) 
+            { 
+                GetField(val);
+                return val;
+            }
+            
+            public bool IsSet(QuickFix.Fields.SplitMsg val) 
+            { 
+                return IsSetSplitMsg();
+            }
+            
+            public bool IsSetSplitMsg() 
+            { 
+                return IsSetField(Tags.SplitMsg);
             }
         }
     }

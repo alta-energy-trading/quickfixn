@@ -399,7 +399,7 @@ namespace QuickFix
             }
             public class NoOrdersGroup : Group
             {
-                public static int[] fieldOrder = {Tags.ClOrdID, Tags.ListSeqNo, Tags.SettlInstMode, Tags.ClientID, Tags.ExecBroker, Tags.Account, Tags.NoAllocs, Tags.SettlmntTyp, Tags.FutSettDate, Tags.HandlInst, Tags.ExecInst, Tags.MinQty, Tags.MaxFloor, Tags.ExDestination, Tags.NoTradingSessions, Tags.ProcessCode, Tags.Symbol, Tags.SymbolSfx, Tags.SecurityID, Tags.IDSource, Tags.SecurityType, Tags.MaturityMonthYear, Tags.MaturityDay, Tags.PutOrCall, Tags.StrikePrice, Tags.OptAttribute, Tags.ContractMultiplier, Tags.CouponRate, Tags.SecurityExchange, Tags.Issuer, Tags.EncodedIssuerLen, Tags.EncodedIssuer, Tags.SecurityDesc, Tags.EncodedSecurityDescLen, Tags.EncodedSecurityDesc, Tags.PrevClosePx, Tags.Side, Tags.SideValueInd, Tags.LocateReqd, Tags.TransactTime, Tags.OrderQty, Tags.CashOrderQty, Tags.OrdType, Tags.Price, Tags.StopPx, Tags.Currency, Tags.ComplianceID, Tags.SolicitedFlag, Tags.IOIid, Tags.QuoteID, Tags.TimeInForce, Tags.EffectiveTime, Tags.ExpireDate, Tags.ExpireTime, Tags.GTBookingInst, Tags.Commission, Tags.CommType, Tags.Rule80A, Tags.ForexReq, Tags.SettlCurrency, Tags.Text, Tags.EncodedTextLen, Tags.EncodedText, Tags.FutSettDate2, Tags.OrderQty2, Tags.OpenClose, Tags.CoveredOrUncovered, Tags.CustomerOrFirm, Tags.MaxShow, Tags.PegDifference, Tags.DiscretionInst, Tags.DiscretionOffset, Tags.ClearingFirm, Tags.ClearingAccount, 0};
+                public static int[] fieldOrder = {Tags.ClOrdID, Tags.ListSeqNo, Tags.SettlInstMode, Tags.ClientID, Tags.ExecBroker, Tags.Account, Tags.NoAllocs, Tags.SettlmntTyp, Tags.SettlDate, Tags.HandlInst, Tags.ExecInst, Tags.MinQty, Tags.MaxFloor, Tags.ExDestination, Tags.NoTradingSessions, Tags.ProcessCode, Tags.Symbol, Tags.SymbolSfx, Tags.SecurityID, Tags.IDSource, Tags.SecurityType, Tags.MaturityMonthYear, Tags.MaturityDay, Tags.PutOrCall, Tags.StrikePrice, Tags.OptAttribute, Tags.ContractMultiplier, Tags.CouponRate, Tags.SecurityExchange, Tags.Issuer, Tags.EncodedIssuerLen, Tags.EncodedIssuer, Tags.SecurityDesc, Tags.EncodedSecurityDescLen, Tags.EncodedSecurityDesc, Tags.PrevClosePx, Tags.Side, Tags.SideValueInd, Tags.LocateReqd, Tags.TransactTime, Tags.OrderQty, Tags.CashOrderQty, Tags.OrdType, Tags.Price, Tags.StopPx, Tags.Currency, Tags.ComplianceID, Tags.SolicitedFlag, Tags.IOIid, Tags.QuoteID, Tags.TimeInForce, Tags.EffectiveTime, Tags.ExpireDate, Tags.ExpireTime, Tags.GTBookingInst, Tags.Commission, Tags.CommType, Tags.Rule80A, Tags.ForexReq, Tags.SettlCurrency, Tags.Text, Tags.EncodedTextLen, Tags.EncodedText, Tags.SettlDate2, Tags.OrderQty2, Tags.OpenClose, Tags.CoveredOrUncovered, Tags.CustomerOrFirm, Tags.MaxShow, Tags.PegDifference, Tags.DiscretionInst, Tags.DiscretionOffset, Tags.ClearingFirm, Tags.ClearingAccount, 0};
             
                 public NoOrdersGroup() 
                   :base( Tags.NoOrders, Tags.ClOrdID, fieldOrder)
@@ -661,36 +661,36 @@ namespace QuickFix
                 { 
                     return IsSetField(Tags.SettlmntTyp);
                 }
-                public QuickFix.Fields.FutSettDate FutSettDate
+                public QuickFix.Fields.SettlDate SettlDate
                 { 
                     get 
                     {
-                        QuickFix.Fields.FutSettDate val = new QuickFix.Fields.FutSettDate();
+                        QuickFix.Fields.SettlDate val = new QuickFix.Fields.SettlDate();
                         GetField(val);
                         return val;
                     }
                     set { SetField(value); }
                 }
                 
-                public void Set(QuickFix.Fields.FutSettDate val) 
+                public void Set(QuickFix.Fields.SettlDate val) 
                 { 
-                    this.FutSettDate = val;
+                    this.SettlDate = val;
                 }
                 
-                public QuickFix.Fields.FutSettDate Get(QuickFix.Fields.FutSettDate val) 
+                public QuickFix.Fields.SettlDate Get(QuickFix.Fields.SettlDate val) 
                 { 
                     GetField(val);
                     return val;
                 }
                 
-                public bool IsSet(QuickFix.Fields.FutSettDate val) 
+                public bool IsSet(QuickFix.Fields.SettlDate val) 
                 { 
-                    return IsSetFutSettDate();
+                    return IsSetSettlDate();
                 }
                 
-                public bool IsSetFutSettDate() 
+                public bool IsSetSettlDate() 
                 { 
-                    return IsSetField(Tags.FutSettDate);
+                    return IsSetField(Tags.SettlDate);
                 }
                 public QuickFix.Fields.HandlInst HandlInst
                 { 
@@ -2366,36 +2366,36 @@ namespace QuickFix
                 { 
                     return IsSetField(Tags.EncodedText);
                 }
-                public QuickFix.Fields.FutSettDate2 FutSettDate2
+                public QuickFix.Fields.SettlDate2 SettlDate2
                 { 
                     get 
                     {
-                        QuickFix.Fields.FutSettDate2 val = new QuickFix.Fields.FutSettDate2();
+                        QuickFix.Fields.SettlDate2 val = new QuickFix.Fields.SettlDate2();
                         GetField(val);
                         return val;
                     }
                     set { SetField(value); }
                 }
                 
-                public void Set(QuickFix.Fields.FutSettDate2 val) 
+                public void Set(QuickFix.Fields.SettlDate2 val) 
                 { 
-                    this.FutSettDate2 = val;
+                    this.SettlDate2 = val;
                 }
                 
-                public QuickFix.Fields.FutSettDate2 Get(QuickFix.Fields.FutSettDate2 val) 
+                public QuickFix.Fields.SettlDate2 Get(QuickFix.Fields.SettlDate2 val) 
                 { 
                     GetField(val);
                     return val;
                 }
                 
-                public bool IsSet(QuickFix.Fields.FutSettDate2 val) 
+                public bool IsSet(QuickFix.Fields.SettlDate2 val) 
                 { 
-                    return IsSetFutSettDate2();
+                    return IsSetSettlDate2();
                 }
                 
-                public bool IsSetFutSettDate2() 
+                public bool IsSetSettlDate2() 
                 { 
-                    return IsSetField(Tags.FutSettDate2);
+                    return IsSetField(Tags.SettlDate2);
                 }
                 public QuickFix.Fields.OrderQty2 OrderQty2
                 { 

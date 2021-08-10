@@ -66,8 +66,7 @@ namespace QuickFix
                 false,
                 _sessionDD,
                 _appDD,
-                _msgFactory,
-                true);
+                _msgFactory);
             return message;
         }
     }
