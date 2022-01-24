@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using QuickFix.Fields;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace QuickFix
 {
@@ -133,15 +134,7 @@ namespace QuickFix
                 int tagend = msgstr.IndexOf("=", pos);
                 int tag = Convert.ToInt32(msgstr.Substring(pos, tagend - pos));
                 pos = tagend + 1;
-                int fieldvalend;
-                if (tag == Tags.XmlData && xmlLen.HasValue)
-                {
-                    fieldvalend = pos + xmlLen.Value;
-                }
-                else
-                {
-                    fieldvalend = msgstr.IndexOf("\u0001", pos);
-                }
+                int fieldvalend = msgstr.IndexOf((char)1, pos);
                 StringField field = new StringField(tag, msgstr.Substring(pos, fieldvalend - pos));
 
                 /** TODO data dict stuff
