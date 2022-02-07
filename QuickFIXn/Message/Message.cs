@@ -140,7 +140,7 @@ namespace QuickFix
                 }
                 else
                 {
-                    fieldvalend = msgstr.IndexOf("\u0001", pos);
+                    fieldvalend = msgstr.IndexOf((char)1, pos);
                 }
                 StringField field = new StringField(tag, msgstr.Substring(pos, fieldvalend - pos));
 
