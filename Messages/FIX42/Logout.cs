@@ -14,12 +14,6 @@ namespace QuickFix
                 this.Header.SetField(new QuickFix.Fields.MsgType("5"));
             }
 
-            public Logout(
-                    QuickFix.Fields.NextExpectedMsgSeqNum aNextExpectedMsgSeqNum
-                ) : this()
-            {
-                this.NextExpectedMsgSeqNum = aNextExpectedMsgSeqNum;
-            }
 
             public QuickFix.Fields.Text Text
             { 
@@ -52,67 +46,67 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.Text);
             }
-            public QuickFix.Fields.NextExpectedMsgSeqNum NextExpectedMsgSeqNum
+            public QuickFix.Fields.EncodedTextLen EncodedTextLen
             { 
                 get 
                 {
-                    QuickFix.Fields.NextExpectedMsgSeqNum val = new QuickFix.Fields.NextExpectedMsgSeqNum();
+                    QuickFix.Fields.EncodedTextLen val = new QuickFix.Fields.EncodedTextLen();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.NextExpectedMsgSeqNum val) 
+            public void Set(QuickFix.Fields.EncodedTextLen val) 
             { 
-                this.NextExpectedMsgSeqNum = val;
+                this.EncodedTextLen = val;
             }
             
-            public QuickFix.Fields.NextExpectedMsgSeqNum Get(QuickFix.Fields.NextExpectedMsgSeqNum val) 
+            public QuickFix.Fields.EncodedTextLen Get(QuickFix.Fields.EncodedTextLen val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.NextExpectedMsgSeqNum val) 
+            public bool IsSet(QuickFix.Fields.EncodedTextLen val) 
             { 
-                return IsSetNextExpectedMsgSeqNum();
+                return IsSetEncodedTextLen();
             }
             
-            public bool IsSetNextExpectedMsgSeqNum() 
+            public bool IsSetEncodedTextLen() 
             { 
-                return IsSetField(Tags.NextExpectedMsgSeqNum);
+                return IsSetField(Tags.EncodedTextLen);
             }
-            public QuickFix.Fields.SplitMsg SplitMsg
+            public QuickFix.Fields.EncodedText EncodedText
             { 
                 get 
                 {
-                    QuickFix.Fields.SplitMsg val = new QuickFix.Fields.SplitMsg();
+                    QuickFix.Fields.EncodedText val = new QuickFix.Fields.EncodedText();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.SplitMsg val) 
+            public void Set(QuickFix.Fields.EncodedText val) 
             { 
-                this.SplitMsg = val;
+                this.EncodedText = val;
             }
             
-            public QuickFix.Fields.SplitMsg Get(QuickFix.Fields.SplitMsg val) 
+            public QuickFix.Fields.EncodedText Get(QuickFix.Fields.EncodedText val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.SplitMsg val) 
+            public bool IsSet(QuickFix.Fields.EncodedText val) 
             { 
-                return IsSetSplitMsg();
+                return IsSetEncodedText();
             }
             
-            public bool IsSetSplitMsg() 
+            public bool IsSetEncodedText() 
             { 
-                return IsSetField(Tags.SplitMsg);
+                return IsSetField(Tags.EncodedText);
             }
         }
     }

@@ -985,7 +985,7 @@ namespace QuickFix
                 if (checkTooHigh && IsTargetTooHigh(msgSeqNum))
                 {
                     DoTargetTooHigh(msg, msgSeqNum);
-                    //return false;
+                    return false;
                 }
                 else if (checkTooLow && IsTargetTooLow(msgSeqNum))
                 {
