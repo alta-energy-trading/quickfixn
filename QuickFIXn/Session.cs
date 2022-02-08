@@ -997,7 +997,7 @@ namespace QuickFix
                 if ((checkTooHigh || checkTooLow) && state_.ResendRequested())
                 {
                     ResendRange range = state_.GetResendRange();
-                    if (msgSeqNum >= range.EndSeqNo)
+                    if (msgSeqNum >= range.EndSeqNo && msg.Header.IsSetField(Fields.Tags.PossDupFlag))
                     {
                         this.Log.OnEvent("ResendRequest for messages FROM: " + range.BeginSeqNo + " TO: " + range.EndSeqNo + " has been satisfied.");
                         state_.SetResendRange(0, 0);

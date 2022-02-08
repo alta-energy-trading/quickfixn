@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using QuickFix.Fields;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace QuickFix
 {
