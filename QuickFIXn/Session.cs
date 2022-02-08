@@ -600,6 +600,7 @@ namespace QuickFix
 
                 Header header = message.Header;
                 string msgType = msgBuilder.MsgType.Obj;
+                
                 string beginString = msgBuilder.BeginString;
 
                 if (!beginString.Equals(this.SessionID.BeginString))
@@ -985,7 +986,7 @@ namespace QuickFix
                 if (checkTooHigh && IsTargetTooHigh(msgSeqNum))
                 {
                     DoTargetTooHigh(msg, msgSeqNum);
-                    //return false;
+                    return false;
                 }
                 else if (checkTooLow && IsTargetTooLow(msgSeqNum))
                 {
