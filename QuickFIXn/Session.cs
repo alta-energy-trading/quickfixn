@@ -1242,7 +1242,7 @@ namespace QuickFix
         protected bool GenerateResendRequest(string beginString, int msgSeqNum)
         {
             int beginSeqNum = state_.GetNextTargetMsgSeqNum();
-            int endRangeSeqNum = msgSeqNum - 1;
+            int endRangeSeqNum = (msgSeqNum - 1) < beginSeqNum ? beginSeqNum : msgSeqNum - 1;
             int endChunkSeqNum;
             if (this.MaxMessagesInResendRequest > 0)
             {
