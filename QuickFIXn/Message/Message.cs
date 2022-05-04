@@ -2,7 +2,7 @@
 using System.Text;
 using QuickFix.Fields;
 using System.Text.RegularExpressions;
-using System.IO;
+using System.Collections.Generic;
 
 namespace QuickFix
 {
@@ -66,7 +66,7 @@ namespace QuickFix
 
         public Header Header { get; private set; }
         public Trailer Trailer { get; private set; }
-        
+
         #endregion
 
         #region Constructors
@@ -84,7 +84,7 @@ namespace QuickFix
 
         public Message(string msgstr, bool validate)
             : this(msgstr, null, null, validate)
-        {  }
+        { }
 
         public Message(string msgstr, DataDictionary.DataDictionary dataDictionary, bool validate)
             : this()
@@ -96,7 +96,7 @@ namespace QuickFix
             : this()
         {
             FromStringHeader(msgstr);
-            if(IsAdmin())
+            if (IsAdmin())
                 FromString(msgstr, validate, sessionDataDictionary, sessionDataDictionary, null);
             else
                 FromString(msgstr, validate, sessionDataDictionary, appDD, null);
@@ -108,7 +108,7 @@ namespace QuickFix
             this.Header = new Header(src.Header);
             this.Trailer = new Trailer(src.Trailer);
             this.validStructure_ = src.validStructure_;
-            this.field_= src.field_;
+            this.field_ = src.field_;
         }
 
         #endregion
@@ -138,15 +138,7 @@ namespace QuickFix
                 int tagend = msgstr.IndexOf('=', pos);
                 int tag = Convert.ToInt32(msgstr.Substring(pos, tagend - pos));
                 pos = tagend + 1;
-                int fieldvalend;
-                if (tag == Tags.XmlData && xmlLen.HasValue)
-                {
-                    fieldvalend = pos + xmlLen.Value;
-                }
-                else
-                {
-                    fieldvalend = msgstr.IndexOf((char)1, pos);
-                }
+                int fieldvalend = msgstr.IndexOf((char)1, pos);
                 StringField field = new StringField(tag, msgstr.Substring(pos, fieldvalend - pos));
 
                 /*
@@ -350,17 +342,17 @@ namespace QuickFix
         public bool FromStringHeader(string msgstr)
         {
             Clear();
-            
+
             int pos = 0;
             int count = 0;
-            while(pos < msgstr.Length)
+            while (pos < msgstr.Length)
             {
                 StringField f = ExtractField(msgstr, ref pos);
-                
-                if((count < 3) && (Header.HEADER_FIELD_ORDER[count++] != f.Tag))
+
+                if ((count < 3) && (Header.HEADER_FIELD_ORDER[count++] != f.Tag))
                     return false;
-                
-                if(IsHeaderField(f.Tag))
+
+                if (IsHeaderField(f.Tag))
                     this.Header.SetField(f, false);
                 else
                     break;
@@ -416,12 +408,12 @@ namespace QuickFix
             bool expectingBody = true;
             int count = 0;
             int pos = 0;
-	        DataDictionary.IFieldMapSpec msgMap = null;
+            DataDictionary.IFieldMapSpec msgMap = null;
 
             while (pos < msgstr.Length)
             {
                 StringField f = ExtractField(msgstr, ref pos, sessionDD, appDD);
-                
+
                 if (validate && (count < 3) && (Header.HEADER_FIELD_ORDER[count++] != f.Tag))
                     throw new InvalidMessage("Header fields out of order");
 
@@ -441,7 +433,7 @@ namespace QuickFix
                         {
                             msgMap = appDD.GetMapForMessage(msgType);
                         }
-		            }
+                    }
 
                     if (!this.Header.SetField(f, false))
                         this.Header.RepeatedTags.Add(f);
@@ -463,7 +455,7 @@ namespace QuickFix
                         pos = SetGroup(f, msgstr, pos, this.Trailer, sessionDD.Trailer.GetGroup(f.Tag), sessionDD, appDD, msgFactory);
                     }
                 }
-                else if (ignoreBody==false)
+                else if (ignoreBody == false)
                 {
                     if (!expectingBody)
                     {
@@ -478,8 +470,8 @@ namespace QuickFix
                         this.RepeatedTags.Add(f);
                     }
 
-                    
-                    if((null != msgMap) && (msgMap.IsGroup(f.Tag)))
+
+                    if ((null != msgMap) && (msgMap.IsGroup(f.Tag)))
                     {
                         pos = SetGroup(f, msgstr, pos, this, msgMap.GetGroupSpec(f.Tag), sessionDD, appDD, msgFactory);
                     }
@@ -553,7 +545,7 @@ namespace QuickFix
                     }
                     return grpPos;
                 }
-                else if(groupDD.IsField(f.Tag) && grp != null && grp.IsSetField(f.Tag))
+                else if (groupDD.IsField(f.Tag) && grp != null && grp.IsSetField(f.Tag))
                 {
                     // Tag is appearing for the second time within a group element.
                     // Presumably the sender didn't set the delimiter (or their DD has a different delimiter).
@@ -568,13 +560,13 @@ namespace QuickFix
 
                 // f is just a field in our group entry.  Add it and iterate again.
                 grp.SetField(f);
-                if(groupDD.IsGroup(f.Tag))
+                if (groupDD.IsGroup(f.Tag))
                 {
                     // f is a counter for a nested group.  Recurse!
                     pos = SetGroup(f, msgstr, pos, grp, groupDD.GetGroupSpec(f.Tag), sessionDataDictionary, appDD, msgFactory);
                 }
             }
-            
+
             return grpPos;
         }
 
@@ -698,31 +690,31 @@ namespace QuickFix
             this.Header.RemoveField(Tags.DeliverToCompID);
             this.Header.RemoveField(Tags.DeliverToSubID);
 
-            if(header.IsSetField(Tags.OnBehalfOfCompID))
+            if (header.IsSetField(Tags.OnBehalfOfCompID))
             {
                 string onBehalfOfCompID = header.GetString(Tags.OnBehalfOfCompID);
-                if(onBehalfOfCompID.Length > 0)
+                if (onBehalfOfCompID.Length > 0)
                     this.Header.SetField(new DeliverToCompID(onBehalfOfCompID));
             }
 
-            if(header.IsSetField(Tags.OnBehalfOfSubID))
+            if (header.IsSetField(Tags.OnBehalfOfSubID))
             {
-                string onBehalfOfSubID = header.GetString(  Tags.OnBehalfOfSubID);
-                if(onBehalfOfSubID.Length > 0)
+                string onBehalfOfSubID = header.GetString(Tags.OnBehalfOfSubID);
+                if (onBehalfOfSubID.Length > 0)
                     this.Header.SetField(new DeliverToSubID(onBehalfOfSubID));
             }
 
-            if(header.IsSetField(Tags.DeliverToCompID))
+            if (header.IsSetField(Tags.DeliverToCompID))
             {
                 string deliverToCompID = header.GetString(Tags.DeliverToCompID);
-                if(deliverToCompID.Length > 0)
+                if (deliverToCompID.Length > 0)
                     this.Header.SetField(new OnBehalfOfCompID(deliverToCompID));
             }
 
-            if(header.IsSetField(Tags.DeliverToSubID))
+            if (header.IsSetField(Tags.DeliverToSubID))
             {
                 string deliverToSubID = header.GetString(Tags.DeliverToSubID);
-                if(deliverToSubID.Length > 0)
+                if (deliverToSubID.Length > 0)
                     this.Header.SetField(new OnBehalfOfSubID(deliverToSubID));
             }
         }
@@ -819,14 +811,14 @@ namespace QuickFix
             // fields
             foreach (var f in fields)
             {
-               s.Append("<field ");
-               if ((dd != null) && ( dd.FieldsByTag.ContainsKey(f.Key)))
-               {
-                   s.Append("name=\"" + dd.FieldsByTag[f.Key].Name + "\" ");
-               }
-               s.Append("number=\"" + f.Key.ToString() + "\">");
-               s.Append("<![CDATA[" + f.Value.ToString() + "]]>");
-               s.Append("</field>");
+                s.Append("<field ");
+                if ((dd != null) && (dd.FieldsByTag.ContainsKey(f.Key)))
+                {
+                    s.Append("name=\"" + dd.FieldsByTag[f.Key].Name + "\" ");
+                }
+                s.Append("number=\"" + f.Key.ToString() + "\">");
+                s.Append("<![CDATA[" + f.Value.ToString() + "]]>");
+                s.Append("</field>");
             }
             // now groups
             List<int> groupTags = fields.GetGroupTags();
@@ -835,7 +827,7 @@ namespace QuickFix
                 for (int counter = 1; counter <= fields.GroupCount(groupTag); counter++)
                 {
                     s.Append("<group>");
-                    s.Append(FieldMapToXML(dd, fields.GetGroup(counter, groupTag), space+1));
+                    s.Append(FieldMapToXML(dd, fields.GetGroup(counter, groupTag), space + 1));
                     s.Append("</group>");
                 }
             }
