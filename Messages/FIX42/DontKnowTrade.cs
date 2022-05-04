@@ -804,36 +804,36 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.CashOrderQty);
             }
-            public QuickFix.Fields.LastQty LastQty
+            public QuickFix.Fields.LastShares LastShares
             { 
                 get 
                 {
-                    QuickFix.Fields.LastQty val = new QuickFix.Fields.LastQty();
+                    QuickFix.Fields.LastShares val = new QuickFix.Fields.LastShares();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.LastQty val) 
+            public void Set(QuickFix.Fields.LastShares val) 
             { 
-                this.LastQty = val;
+                this.LastShares = val;
             }
             
-            public QuickFix.Fields.LastQty Get(QuickFix.Fields.LastQty val) 
+            public QuickFix.Fields.LastShares Get(QuickFix.Fields.LastShares val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.LastQty val) 
+            public bool IsSet(QuickFix.Fields.LastShares val) 
             { 
-                return IsSetLastQty();
+                return IsSetLastShares();
             }
             
-            public bool IsSetLastQty() 
+            public bool IsSetLastShares() 
             { 
-                return IsSetField(Tags.LastQty);
+                return IsSetField(Tags.LastShares);
             }
             public QuickFix.Fields.LastPx LastPx
             { 

@@ -1291,7 +1291,7 @@ namespace QuickFix
             }
             public class NoBidComponentsGroup : Group
             {
-                public static int[] fieldOrder = {Tags.ListID, Tags.Side, Tags.TradingSessionID, Tags.NetGrossInd, Tags.SettlmntTyp, Tags.SettlDate, Tags.Account, 0};
+                public static int[] fieldOrder = {Tags.ListID, Tags.Side, Tags.TradingSessionID, Tags.NetGrossInd, Tags.SettlmntTyp, Tags.FutSettDate, Tags.Account, 0};
             
                 public NoBidComponentsGroup() 
                   :base( Tags.NoBidComponents, Tags.ListID, fieldOrder)
@@ -1460,36 +1460,36 @@ namespace QuickFix
                 { 
                     return IsSetField(Tags.SettlmntTyp);
                 }
-                public QuickFix.Fields.SettlDate SettlDate
+                public QuickFix.Fields.FutSettDate FutSettDate
                 { 
                     get 
                     {
-                        QuickFix.Fields.SettlDate val = new QuickFix.Fields.SettlDate();
+                        QuickFix.Fields.FutSettDate val = new QuickFix.Fields.FutSettDate();
                         GetField(val);
                         return val;
                     }
                     set { SetField(value); }
                 }
                 
-                public void Set(QuickFix.Fields.SettlDate val) 
+                public void Set(QuickFix.Fields.FutSettDate val) 
                 { 
-                    this.SettlDate = val;
+                    this.FutSettDate = val;
                 }
                 
-                public QuickFix.Fields.SettlDate Get(QuickFix.Fields.SettlDate val) 
+                public QuickFix.Fields.FutSettDate Get(QuickFix.Fields.FutSettDate val) 
                 { 
                     GetField(val);
                     return val;
                 }
                 
-                public bool IsSet(QuickFix.Fields.SettlDate val) 
+                public bool IsSet(QuickFix.Fields.FutSettDate val) 
                 { 
-                    return IsSetSettlDate();
+                    return IsSetFutSettDate();
                 }
                 
-                public bool IsSetSettlDate() 
+                public bool IsSetFutSettDate() 
                 { 
-                    return IsSetField(Tags.SettlDate);
+                    return IsSetField(Tags.FutSettDate);
                 }
                 public QuickFix.Fields.Account Account
                 { 

@@ -827,36 +827,36 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.CorporateAction);
             }
-            public QuickFix.Fields.HaltReasonChar HaltReasonChar
+            public QuickFix.Fields.HaltReason HaltReason
             { 
                 get 
                 {
-                    QuickFix.Fields.HaltReasonChar val = new QuickFix.Fields.HaltReasonChar();
+                    QuickFix.Fields.HaltReason val = new QuickFix.Fields.HaltReason();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.HaltReasonChar val) 
+            public void Set(QuickFix.Fields.HaltReason val) 
             { 
-                this.HaltReasonChar = val;
+                this.HaltReason = val;
             }
             
-            public QuickFix.Fields.HaltReasonChar Get(QuickFix.Fields.HaltReasonChar val) 
+            public QuickFix.Fields.HaltReason Get(QuickFix.Fields.HaltReason val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.HaltReasonChar val) 
+            public bool IsSet(QuickFix.Fields.HaltReason val) 
             { 
-                return IsSetHaltReasonChar();
+                return IsSetHaltReason();
             }
             
-            public bool IsSetHaltReasonChar() 
+            public bool IsSetHaltReason() 
             { 
-                return IsSetField(Tags.HaltReasonChar);
+                return IsSetField(Tags.HaltReason);
             }
             public QuickFix.Fields.InViewOfCommon InViewOfCommon
             { 

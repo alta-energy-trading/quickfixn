@@ -1149,36 +1149,36 @@ namespace QuickFix
             { 
                 return IsSetField(Tags.SettlmntTyp);
             }
-            public QuickFix.Fields.SettlDate SettlDate
+            public QuickFix.Fields.FutSettDate FutSettDate
             { 
                 get 
                 {
-                    QuickFix.Fields.SettlDate val = new QuickFix.Fields.SettlDate();
+                    QuickFix.Fields.FutSettDate val = new QuickFix.Fields.FutSettDate();
                     GetField(val);
                     return val;
                 }
                 set { SetField(value); }
             }
             
-            public void Set(QuickFix.Fields.SettlDate val) 
+            public void Set(QuickFix.Fields.FutSettDate val) 
             { 
-                this.SettlDate = val;
+                this.FutSettDate = val;
             }
             
-            public QuickFix.Fields.SettlDate Get(QuickFix.Fields.SettlDate val) 
+            public QuickFix.Fields.FutSettDate Get(QuickFix.Fields.FutSettDate val) 
             { 
                 GetField(val);
                 return val;
             }
             
-            public bool IsSet(QuickFix.Fields.SettlDate val) 
+            public bool IsSet(QuickFix.Fields.FutSettDate val) 
             { 
-                return IsSetSettlDate();
+                return IsSetFutSettDate();
             }
             
-            public bool IsSetSettlDate() 
+            public bool IsSetFutSettDate() 
             { 
-                return IsSetField(Tags.SettlDate);
+                return IsSetField(Tags.FutSettDate);
             }
             public QuickFix.Fields.GrossTradeAmt GrossTradeAmt
             { 
@@ -1634,10 +1634,10 @@ namespace QuickFix
             }
             public class NoExecsGroup : Group
             {
-                public static int[] fieldOrder = {Tags.LastQty, Tags.ExecID, Tags.LastPx, Tags.LastCapacity, 0};
+                public static int[] fieldOrder = {Tags.LastShares, Tags.ExecID, Tags.LastPx, Tags.LastCapacity, 0};
             
                 public NoExecsGroup() 
-                  :base( Tags.NoExecs, Tags.LastQty, fieldOrder)
+                  :base( Tags.NoExecs, Tags.LastShares, fieldOrder)
                 {
                 }
             
@@ -1648,36 +1648,36 @@ namespace QuickFix
                     return clone;
                 }
             
-                public QuickFix.Fields.LastQty LastQty
+                public QuickFix.Fields.LastShares LastShares
                 { 
                     get 
                     {
-                        QuickFix.Fields.LastQty val = new QuickFix.Fields.LastQty();
+                        QuickFix.Fields.LastShares val = new QuickFix.Fields.LastShares();
                         GetField(val);
                         return val;
                     }
                     set { SetField(value); }
                 }
                 
-                public void Set(QuickFix.Fields.LastQty val) 
+                public void Set(QuickFix.Fields.LastShares val) 
                 { 
-                    this.LastQty = val;
+                    this.LastShares = val;
                 }
                 
-                public QuickFix.Fields.LastQty Get(QuickFix.Fields.LastQty val) 
+                public QuickFix.Fields.LastShares Get(QuickFix.Fields.LastShares val) 
                 { 
                     GetField(val);
                     return val;
                 }
                 
-                public bool IsSet(QuickFix.Fields.LastQty val) 
+                public bool IsSet(QuickFix.Fields.LastShares val) 
                 { 
-                    return IsSetLastQty();
+                    return IsSetLastShares();
                 }
                 
-                public bool IsSetLastQty() 
+                public bool IsSetLastShares() 
                 { 
-                    return IsSetField(Tags.LastQty);
+                    return IsSetField(Tags.LastShares);
                 }
                 public QuickFix.Fields.ExecID ExecID
                 { 
