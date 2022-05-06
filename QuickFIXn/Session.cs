@@ -25,6 +25,7 @@ namespace QuickFix
         private IMessageFactory msgFactory_;
         private bool appDoesEarlyIntercept_;
         private static readonly HashSet<string> AdminMsgTypes = new HashSet<string>() { "0", "A", "1", "2", "3", "4", "5" };
+        private int _cmeFloor = 0;
 
         #endregion
 
@@ -1240,7 +1241,7 @@ namespace QuickFix
 
         protected bool GenerateResendRequest(string beginString, int msgSeqNum)
         {
-            int beginSeqNum = state_.GetNextTargetMsgSeqNum();
+            int beginSeqNum = _cmeFloor > 0 ? _cmeFloor : state_.GetNextTargetMsgSeqNum();
             int endRangeSeqNum = msgSeqNum - 1;
             int endChunkSeqNum;
             if (this.MaxMessagesInResendRequest > 0)
