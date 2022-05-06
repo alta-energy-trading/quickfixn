@@ -647,7 +647,8 @@ namespace QuickFix
                 {
                     if (!Verify(message))
                         return;
-                    state_.IncrNextTargetMsgSeqNum();
+                    if(!message.ToString().Contains("43=Y"))
+                        state_.IncrNextTargetMsgSeqNum();
                 }
 
             }
@@ -985,10 +986,15 @@ namespace QuickFix
 
                 if (checkTooHigh && IsTargetTooHigh(msgSeqNum))
                 {
+                    if (msgType == "3" && msg.GetString(Fields.Tags.Text).ToLower().Contains("fulfilled"))
+                    {
+                        Log.OnEvent($"Need to send a higher begin seq number");
+                        _cmeFloor = msg.GetInt(5024);
+                    }
                     DoTargetTooHigh(msg, msgSeqNum);
-                    //return false;
+                    return false;
                 }
-                else if (checkTooLow && IsTargetTooLow(msgSeqNum))
+                else if (checkTooLow && IsTargetTooLow(msgSeqNum) && msgType != "n")
                 {
                     DoTargetTooLow(msg, msgSeqNum);
                     return false;
