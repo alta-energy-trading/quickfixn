@@ -632,6 +632,11 @@ namespace QuickFix
 
                 if (MsgType.LOGON.Equals(msgType))
                     NextLogon(message);
+                else if (MsgType.XML_NON_FIX.Equals(msgType))
+                {
+                    if (!message.ToString().Contains("43=Y"))
+                        state_.IncrNextTargetMsgSeqNum();
+                }
                 else if (MsgType.LOGOUT.Equals(msgType))
                     NextLogout(message);
                 else if (!IsLoggedOn)
@@ -648,8 +653,7 @@ namespace QuickFix
                 {
                     if (!Verify(message))
                         return;
-                    if(!message.ToString().Contains("43=Y"))
-                        state_.IncrNextTargetMsgSeqNum();
+                    state_.IncrNextTargetMsgSeqNum();
                 }
 
             }
@@ -990,10 +994,10 @@ namespace QuickFix
                     if (msgType == "3" && msg.GetString(Fields.Tags.Text).ToLower().Contains("fulfilled"))
                     {
                         Log.OnEvent($"Need to send a higher begin seq number");
+                        state_.SetResendRange(0, 0);
                         _cmeFloor = msg.GetInt(5024);
                     }
                     DoTargetTooHigh(msg, msgSeqNum);
-                    return false;
                 }
                 else if (checkTooLow && IsTargetTooLow(msgSeqNum) && msgType != "n")
                 {
@@ -1249,6 +1253,7 @@ namespace QuickFix
         protected bool GenerateResendRequest(string beginString, int msgSeqNum)
         {
             int beginSeqNum = _cmeFloor > 0 ? _cmeFloor : state_.GetNextTargetMsgSeqNum();
+            _cmeFloor = 0;
             int endRangeSeqNum = msgSeqNum - 1;
             int endChunkSeqNum;
             if (this.MaxMessagesInResendRequest > 0)

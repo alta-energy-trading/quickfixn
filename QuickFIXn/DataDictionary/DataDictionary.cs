@@ -167,7 +167,8 @@ namespace QuickFix.DataDictionary
             foreach (int field in Messages[msgType].ReqFields)
             {
                 if (!message.IsSetField(field))
-                    throw new RequiredTagMissing(field);
+                    if(msgType != "n")
+                        throw new RequiredTagMissing(field);
             }
 
             /* FIXME TODO group stuff
