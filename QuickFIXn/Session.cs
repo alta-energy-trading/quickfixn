@@ -785,7 +785,10 @@ namespace QuickFix
             if (!Verify(testRequest))
                 return;
             GenerateHeartbeat(testRequest);
-            state_.IncrNextTargetMsgSeqNum();
+            if (testRequest.IsSetField(123))
+                state_.SetNextTargetMsgSeqNum(testRequest.GetInt(36));
+            else
+                state_.IncrNextTargetMsgSeqNum();
         }
 
         protected void NextResendRequest(Message resendReq)

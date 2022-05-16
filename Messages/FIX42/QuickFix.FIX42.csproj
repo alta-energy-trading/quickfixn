@@ -29,4 +29,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\QuickFIXn\QuickFix.csproj" />
+  </ItemGroup>
+
 </Project>
