@@ -49,12 +49,12 @@ namespace QuickFix
         public const string SOH = "\u0001";
         private int field_ = 0;
         private bool validStructure_;
-
+        
         #region Properties
 
         public Header Header { get; private set; }
         public Trailer Trailer { get; private set; }
-
+        
         #endregion
 
         #region Constructors
@@ -72,7 +72,7 @@ namespace QuickFix
 
         public Message(string msgstr, bool validate)
             : this(msgstr, null, null, validate)
-        { }
+        {  }
 
         public Message(string msgstr, DataDictionary.DataDictionary dataDictionary, bool validate)
             : this()
@@ -84,7 +84,7 @@ namespace QuickFix
             : this()
         {
             FromStringHeader(msgstr);
-            if (IsAdmin())
+            if(IsAdmin())
                 FromString(msgstr, validate, sessionDataDictionary, sessionDataDictionary, null);
             else
                 FromString(msgstr, validate, sessionDataDictionary, appDD, null);
@@ -93,12 +93,10 @@ namespace QuickFix
         public Message(Message src)
             : base(src)
         {
-            if (MsgType.XML_NON_FIX.Equals(src.Header.GetField(new MsgType()).getValue()))
-            { }
             this.Header = new Header(src.Header);
             this.Trailer = new Trailer(src.Trailer);
             this.validStructure_ = src.validStructure_;
-            this.field_ = src.field_;
+            this.field_= src.field_;
         }
 
         #endregion
@@ -124,8 +122,8 @@ namespace QuickFix
         public static StringField ExtractField(
             string msgstr,
             ref int pos,
-            DataDictionary.DataDictionary sessionDD,
-            DataDictionary.DataDictionary appDD,
+            DataDictionary.DataDictionary sessionDD, 
+            DataDictionary.DataDictionary appDD, 
             int? xmlLen = null)
         {
             try
@@ -142,7 +140,7 @@ namespace QuickFix
                 {
                     fieldvalend = msgstr.IndexOf((char)1, pos);
                 }
-                StringField field = new StringField(tag, msgstr.Substring(pos, fieldvalend - pos));
+                StringField field =  new StringField(tag, msgstr.Substring(pos, fieldvalend - pos));
 
                 /** TODO data dict stuff
                 if (((null != sessionDD) && sessionDD.IsDataField(field.Tag)) || ((null != appDD) && appDD.IsDataField(field.Tag)))
@@ -153,15 +151,15 @@ namespace QuickFix
                     // Special case for Signature which violates above assumption
                     if (Tags.Signature.Equals(field.Tag))
                         lenField = Tags.SignatureLength;
- 
+
                     if ((null != group) && group.isSetField(lenField))
                     {
-                        fieldLength = group.GetString(lenField);
+                        fieldLength = group.GetField(lenField);
                         soh = equalSign + 1 + atol(fieldLength.c_str());
                     }
                     else if (isSetField(lenField))
                     {
-                        fieldLength = GetString(lenField);
+                        fieldLength = getField(lenField);
                         soh = equalSign + 1 + atol(fieldLength.c_str());
                     }
                 }
@@ -262,14 +260,14 @@ namespace QuickFix
             return false;
         }
 
-        public static string GetStringOrDefault(FieldMap fields, int tag, string defaultValue)
+        public static string GetFieldOrDefault(FieldMap fields, int tag, string defaultValue)
         {
             if (!fields.IsSetField(tag))
                 return defaultValue;
 
             try
             {
-                return fields.GetString(tag);
+                return fields.GetField(tag);
             }
             catch (FieldNotFoundException)
             {
@@ -280,13 +278,13 @@ namespace QuickFix
         public static SessionID GetReverseSessionID(Message msg)
         {
             return new SessionID(
-                GetStringOrDefault(msg.Header, Tags.BeginString, null),
-                GetStringOrDefault(msg.Header, Tags.TargetCompID, null),
-                GetStringOrDefault(msg.Header, Tags.TargetSubID, SessionID.NOT_SET),
-                GetStringOrDefault(msg.Header, Tags.TargetLocationID, SessionID.NOT_SET),
-                GetStringOrDefault(msg.Header, Tags.SenderCompID, null),
-                GetStringOrDefault(msg.Header, Tags.SenderSubID, SessionID.NOT_SET),
-                GetStringOrDefault(msg.Header, Tags.SenderLocationID, SessionID.NOT_SET)
+                GetFieldOrDefault(msg.Header, Tags.BeginString, null),
+                GetFieldOrDefault(msg.Header, Tags.TargetCompID, null),
+                GetFieldOrDefault(msg.Header, Tags.TargetSubID, SessionID.NOT_SET),
+                GetFieldOrDefault(msg.Header, Tags.TargetLocationID, SessionID.NOT_SET),
+                GetFieldOrDefault(msg.Header, Tags.SenderCompID, null),
+                GetFieldOrDefault(msg.Header, Tags.SenderSubID, SessionID.NOT_SET),
+                GetFieldOrDefault(msg.Header, Tags.SenderLocationID, SessionID.NOT_SET)
             );
         }
 
@@ -346,17 +344,17 @@ namespace QuickFix
         public bool FromStringHeader(string msgstr)
         {
             Clear();
-
+            
             int pos = 0;
             int count = 0;
-            while (pos < msgstr.Length)
+            while(pos < msgstr.Length)
             {
                 StringField f = ExtractField(msgstr, ref pos);
-
-                if ((count < 3) && (Header.HEADER_FIELD_ORDER[count++] != f.Tag))
+                
+                if((count < 3) && (Header.HEADER_FIELD_ORDER[count++] != f.Tag))
                     return false;
-
-                if (IsHeaderField(f.Tag))
+                
+                if(IsHeaderField(f.Tag))
                     this.Header.SetField(f, false);
                 else
                     break;
@@ -375,7 +373,7 @@ namespace QuickFix
         {
             FromString(msgstr, validate, sessionDD, appDD, null);
         }
-
+ 
 
         /// <summary>
         /// Creates a Message from a FIX string
@@ -395,7 +393,7 @@ namespace QuickFix
             bool expectingBody = true;
             int count = 0;
             int pos = 0;
-            DataDictionary.IFieldMapSpec msgMap = null;
+	        DataDictionary.IFieldMapSpec msgMap = null;
             int? xmlLen = null;
 
             while (pos < msgstr.Length)
@@ -410,7 +408,7 @@ namespace QuickFix
                         xmlLen = tmpXmlLen;
                     }
                 }
-
+                
                 if (validate && (count < 3) && (Header.HEADER_FIELD_ORDER[count++] != f.Tag))
                     throw new InvalidMessage("Header fields out of order");
 
@@ -430,7 +428,7 @@ namespace QuickFix
                         {
                             msgMap = appDD.GetMapForMessage(msgType);
                         }
-                    }
+		            }
 
                     if (!this.Header.SetField(f, false))
                         this.Header.RepeatedTags.Add(f);
@@ -467,8 +465,8 @@ namespace QuickFix
                         this.RepeatedTags.Add(f);
                     }
 
-
-                    if ((null != msgMap) && (msgMap.IsGroup(f.Tag)))
+                    
+                    if((null != msgMap) && (msgMap.IsGroup(f.Tag)))
                     {
                         pos = SetGroup(f, msgstr, pos, this, msgMap.GetGroupSpec(f.Tag), sessionDD, appDD, msgFactory);
                     }
@@ -552,13 +550,13 @@ namespace QuickFix
 
                 // f is just a field in our group entry.  Add it and iterate again.
                 grp.SetField(f);
-                if (dd.IsGroup(f.Tag))
+                if(dd.IsGroup(f.Tag))
                 {
                     // f is a counter for a nested group.  Recurse!
                     pos = SetGroup(f, msgstr, pos, grp, dd.GetGroupSpec(f.Tag), sessionDataDictionary, appDD, msgFactory);
                 }
             }
-
+            
             return grpPos;
         }
 
@@ -603,7 +601,7 @@ namespace QuickFix
 
             if (header.IsSetField(Tags.BeginString))
             {
-                string beginString = header.GetString(Tags.BeginString);
+                string beginString = header.GetField(Tags.BeginString);
                 if (beginString.Length > 0)
                     this.Header.SetField(new BeginString(beginString));
 
@@ -614,14 +612,14 @@ namespace QuickFix
                 {
                     if (header.IsSetField(Tags.OnBehalfOfLocationID))
                     {
-                        string onBehalfOfLocationID = header.GetString(Tags.OnBehalfOfLocationID);
+                        string onBehalfOfLocationID = header.GetField(Tags.OnBehalfOfLocationID);
                         if (onBehalfOfLocationID.Length > 0)
                             this.Header.SetField(new DeliverToLocationID(onBehalfOfLocationID));
                     }
 
                     if (header.IsSetField(Tags.DeliverToLocationID))
                     {
-                        string deliverToLocationID = header.GetString(Tags.DeliverToLocationID);
+                        string deliverToLocationID = header.GetField(Tags.DeliverToLocationID);
                         if (deliverToLocationID.Length > 0)
                             this.Header.SetField(new OnBehalfOfLocationID(deliverToLocationID));
                     }
@@ -682,31 +680,31 @@ namespace QuickFix
             this.Header.RemoveField(Tags.DeliverToCompID);
             this.Header.RemoveField(Tags.DeliverToSubID);
 
-            if (header.IsSetField(Tags.OnBehalfOfCompID))
+            if(header.IsSetField(Tags.OnBehalfOfCompID))
             {
-                string onBehalfOfCompID = header.GetString(Tags.OnBehalfOfCompID);
-                if (onBehalfOfCompID.Length > 0)
+                string onBehalfOfCompID = header.GetField(Tags.OnBehalfOfCompID);
+                if(onBehalfOfCompID.Length > 0)
                     this.Header.SetField(new DeliverToCompID(onBehalfOfCompID));
             }
 
-            if (header.IsSetField(Tags.OnBehalfOfSubID))
+            if(header.IsSetField(Tags.OnBehalfOfSubID))
             {
-                string onBehalfOfSubID = header.GetString(Tags.OnBehalfOfSubID);
-                if (onBehalfOfSubID.Length > 0)
+                string onBehalfOfSubID = header.GetField(  Tags.OnBehalfOfSubID);
+                if(onBehalfOfSubID.Length > 0)
                     this.Header.SetField(new DeliverToSubID(onBehalfOfSubID));
             }
 
-            if (header.IsSetField(Tags.DeliverToCompID))
+            if(header.IsSetField(Tags.DeliverToCompID))
             {
-                string deliverToCompID = header.GetString(Tags.DeliverToCompID);
-                if (deliverToCompID.Length > 0)
+                string deliverToCompID = header.GetField(Tags.DeliverToCompID);
+                if(deliverToCompID.Length > 0)
                     this.Header.SetField(new OnBehalfOfCompID(deliverToCompID));
             }
 
-            if (header.IsSetField(Tags.DeliverToSubID))
+            if(header.IsSetField(Tags.DeliverToSubID))
             {
-                string deliverToSubID = header.GetString(Tags.DeliverToSubID);
-                if (deliverToSubID.Length > 0)
+                string deliverToSubID = header.GetField(Tags.DeliverToSubID);
+                if(deliverToSubID.Length > 0)
                     this.Header.SetField(new OnBehalfOfSubID(deliverToSubID));
             }
         }
@@ -721,12 +719,12 @@ namespace QuickFix
 
         public bool IsAdmin()
         {
-            return this.Header.IsSetField(Tags.MsgType) && IsAdminMsgType(this.Header.GetString(Tags.MsgType));
+            return this.Header.IsSetField(Tags.MsgType) && IsAdminMsgType(this.Header.GetField(Tags.MsgType));
         }
 
         public bool IsApp()
         {
-            return this.Header.IsSetField(Tags.MsgType) && !IsAdminMsgType(this.Header.GetString(Tags.MsgType));
+            return this.Header.IsSetField(Tags.MsgType) && !IsAdminMsgType(this.Header.GetField(Tags.MsgType));
         }
 
         /// <summary>
@@ -756,18 +754,18 @@ namespace QuickFix
             bool targetLocationIDSet = m.Header.IsSetField(Tags.TargetLocationID);
 
             if (senderSubIDSet && senderLocationIDSet && targetSubIDSet && targetLocationIDSet)
-                return new SessionID(m.Header.GetString(Tags.BeginString),
-                    m.Header.GetString(Tags.SenderCompID), m.Header.GetString(Tags.SenderSubID), m.Header.GetString(Tags.SenderLocationID),
-                    m.Header.GetString(Tags.TargetCompID), m.Header.GetString(Tags.TargetSubID), m.Header.GetString(Tags.TargetLocationID));
+                return new SessionID(m.Header.GetField(Tags.BeginString),
+                    m.Header.GetField(Tags.SenderCompID), m.Header.GetField(Tags.SenderSubID), m.Header.GetField(Tags.SenderLocationID),
+                    m.Header.GetField(Tags.TargetCompID), m.Header.GetField(Tags.TargetSubID), m.Header.GetField(Tags.TargetLocationID));
             else if (senderSubIDSet && targetSubIDSet)
-                return new SessionID(m.Header.GetString(Tags.BeginString),
-                    m.Header.GetString(Tags.SenderCompID), m.Header.GetString(Tags.SenderSubID),
-                    m.Header.GetString(Tags.TargetCompID), m.Header.GetString(Tags.TargetSubID));
+                return new SessionID(m.Header.GetField(Tags.BeginString),
+                    m.Header.GetField(Tags.SenderCompID), m.Header.GetField(Tags.SenderSubID),
+                    m.Header.GetField(Tags.TargetCompID), m.Header.GetField(Tags.TargetSubID));
             else
                 return new SessionID(
-                    m.Header.GetString(Tags.BeginString),
-                    m.Header.GetString(Tags.SenderCompID),
-                    m.Header.GetString(Tags.TargetCompID));
+                    m.Header.GetField(Tags.BeginString),
+                    m.Header.GetField(Tags.SenderCompID),
+                    m.Header.GetField(Tags.TargetCompID));
         }
 
         public override void Clear()

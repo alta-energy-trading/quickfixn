@@ -635,7 +635,12 @@ namespace QuickFix
                 else if (MsgType.XML_NON_FIX.Equals(msgType))
                 {
                     if (!message.ToString().Contains("43=Y"))
+                    {
                         state_.IncrNextTargetMsgSeqNum();
+                        var xmlMsg = msgFactory_.Create(this.SessionID.BeginString, Fields.MsgType.XML_NON_FIX);
+                        xmlMsg.FromString(message.ToString(), false, SessionDataDictionary, ApplicationDataDictionary);
+                        this.Application.FromApp(xmlMsg, SessionID);
+                    }
                 }
                 else if (MsgType.LOGOUT.Equals(msgType))
                     NextLogout(message);
